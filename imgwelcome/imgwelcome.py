@@ -28,7 +28,7 @@ from io import BytesIO
 from PIL import Image,ImageFont,ImageOps,ImageDraw
 class ImgWelcome(commands.Cog):
 	'Welcomes a user to the server with an image.'
-	def __init__(A,bot):A.bot=bot;A.config=Config.get_conf(A,2713933330,force_registration=_A);A.datapath=str(cog_data_path(raw_name='ImgWelcome'));A.imgpath=str(bundled_data_path(A));B={'ANNOUNCE':_C,'ACCOUNT_WARNINGS':_A,_O:f"{A.imgpath}/transparent.png",_P:[255,255,255,230],'CHANNEL':_B,_Q:[128,128],_E:f"{A.imgpath}/fonts/UniSansHeavy.otf",_F:30,_G:22,_H:18,_I:12,_R:[0,0,0,255],_J:f"{A.imgpath}/fonts/UniSansHeavy.otf",_K:20,_S:[255,255,255,230],'SPECIAL_USERS':_A,_T:[255,255,255,230],_L:f"{A.imgpath}/fonts/UniSansHeavy.otf",_M:50};A.config.register_guild(**B);A.session=aiohttp.ClientSession();A.version='0.3.1'
+	def __init__(A,bot):A.bot=bot;A.config=Config.get_conf(A,2713933330,force_registration=_A);A.datapath=str(cog_data_path(raw_name=bot));A.imgpath=str(bundled_data_path(A));B={'ANNOUNCE':_C,'ACCOUNT_WARNINGS':_A,_O:f"{A.imgpath}/transparent.png",_P:[255,255,255,230],'CHANNEL':_B,_Q:[128,128],_E:f"{A.imgpath}/fonts/UniSansHeavy.otf",_F:30,_G:22,_H:18,_I:12,_R:[0,0,0,255],_J:f"{A.imgpath}/fonts/UniSansHeavy.otf",_K:20,_S:[255,255,255,230],'SPECIAL_USERS':_A,_T:[255,255,255,230],_L:f"{A.imgpath}/fonts/UniSansHeavy.otf",_M:50};A.config.register_guild(**B);A.session=aiohttp.ClientSession();A.version='0.3.1'
 	def cog_unload(A):A.bot.loop.create_task(A.session.close())
 	async def _create_welcome(J,member,test_member_number:int=_B):
 		w='of ';v='Welcome';u='L';U=test_member_number;D=member;A=await J.config.guild(D.guild).all();h=A[_L];i=A[_M];j=A[_J];k=A[_K];K=A[_E];l=A[_F];m=A[_G];n=A[_H];o=A[_I];V=ImageFont.truetype(h,i);L=ImageFont.truetype(j,k);W=ImageFont.truetype(K,l);X=ImageFont.truetype(K,m);Y=ImageFont.truetype(K,n);Z=ImageFont.truetype(K,o);a=Image.open(A[_O]).convert(_D);p=Image.open(J.imgpath+'/noimage.png');E=Image.new(_D,(500,150));E=ImageOps.fit(a,(500,150),centering=(0.5,0.5));E.paste(a);E=E.resize((500,150),Image.NEAREST);M=Image.new(u,(512,512),0);q=ImageDraw.Draw(M);q.ellipse(((0,0),(512,512)),fill=255);P=tuple(A[_Q]);M=M.resize(P,Image.ANTIALIAS)
@@ -43,7 +43,7 @@ class ImgWelcome(commands.Cog):
 		if len(B)>=24:
 			if len(B)<=32:G((152,70),B,1,Y,F);C.text((152,70),B,font=Y,fill=I)
 		if len(B)>=33:G((152,73),B,1,Z,F);C.text((152,73),B,font=Z,fill=I)
-		if not U:S=sorted(D.guild.members,key=lambda m:m.joined_at).index(D)+1
+		if not U:S=sorted(D.guild.members,key=lambda m:m.joined_at or datetime.datetime.fromtimestamp(0)).index(D)+1
 		else:S=int(U)
 		f=str(S)+J._get_suffix(S);g=str(D.guild.name)+'!'if len(str(D.guild.name))<=28 else str(D.guild.name)[:23]+'...';G((152,96),f"You are the {str(f)} member",1,L,F);C.text((152,96),f"You are the {str(f)} member",font=L,fill=b);G((152,116),w+g,1,L,F);C.text((152,116),w+g,font=L,fill=b);T=BytesIO();E.save(T,format='PNG');T.seek(0);return T
 	async def _circle_border(C,circle_img_size:tuple):
